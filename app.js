@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 
+const userRoutes = require('./routes/userRoutes');
+
 const app = express();
 const PORT = 3000;
 
@@ -17,6 +19,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+// Route dosyaları
+app.use('/', userRoutes);
 
 // Ana sayfa
 app.get('/', (req, res) => {
@@ -48,10 +53,6 @@ app.get('/', (req, res) => {
 });
 
 // Geçici test route'ları
-app.get('/register', (req, res) => {
-  res.send('Register page will be here.');
-});
-
 app.get('/login', (req, res) => {
   res.send('Login page will be here.');
 });
