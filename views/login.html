@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - NodeBlogify</title>
+    <!-- public klasöründeki style.css dosyasına bağlanıyor -->
+    <link rel="stylesheet" href="/style.css"> 
+</head>
+<body>
+
+    <div class="login-container">
+        <h2 class="text-center"> Giriş Yap</h2>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı:</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre:</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary">Giriş Yap</button>
+        </form>
+        <div class="text-center mt-15">
+            <a href="/register">Hesabın yok mu? Kayıt Ol</a>
+        </div>
+    </div>
+
+</body>
+</html>

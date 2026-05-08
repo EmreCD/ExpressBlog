@@ -9,15 +9,17 @@ const PORT = 3000;
 
 // Form verilerini okumak için
 app.use(express.urlencoded({ extended: true }));
+// JSON formatındaki verileri okumak için (eklendi)
+app.use(express.json());
 
 // CSS gibi static dosyalar için
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session ayarı
+// Session ayarı (Görev 3)
 app.use(session({
   secret: 'nodeblogify-secret-key',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false // Güvenlik ve gereksiz session oluşumunu engellemek için false yapıldı
 }));
 
 // Route dosyaları
@@ -52,10 +54,8 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Geçici test route'ları
-app.get('/login', (req, res) => {
-  res.send('Login page will be here.');
-});
+// Geçici test route'larından /login ve /logout silindi.
+// Bu işlemler artık MVC mimarisine uygun olarak userRoutes.js ve authController.js üzerinden yönetilecek.
 
 app.get('/posts', (req, res) => {
   res.send('Posts page will be here.');
@@ -69,10 +69,6 @@ app.get('/forgot-password', (req, res) => {
   res.send('Reset password page will be here.');
 });
 
-app.get('/logout', (req, res) => {
-  res.send('Logout will be here.');
-});
-
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT} 🚀`);
 });
