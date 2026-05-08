@@ -13,18 +13,27 @@
     <a href="/posts">Posts</a>
   </nav>
 
-  <div class="container">
-    <h2>Register</h2>
+  <div class="login-container">
+    <h2 class="text-center">Kayıt Ol</h2>
 
     <form action="/register" method="POST">
-      <input type="text" name="username" placeholder="Username" required>
-      <br><br>
+      
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+      </div>
 
-      <input type="password" name="password" placeholder="Password" required>
-      <br><br>
+      <div class="form-group">
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+      </div>
 
-      <button type="submit">Register</button>
+      <button type="submit" class="btn-primary">Kayıt Ol</button>
     </form>
+
+    <div class="text-center mt-15">
+        <a href="/login">Zaten bir hesabınız var mı? Giriş yapın.</a>
+    </div>
   </div>
 
 </body>
