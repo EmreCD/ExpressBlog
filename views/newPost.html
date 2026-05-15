@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yeni Post</title>
+</head>
+<body>
+  <h1>Yeni Blog Yazisi</h1>
+
+  <form action="/posts/new" method="POST">
+    <div>
+      <label>Baslik</label>
+      <input type="text" name="title" required>
+    </div>
+
+    <div>
+      <label>Icerik</label>
+      <textarea name="content" required></textarea>
+    </div>
+
+    <button type="submit">Post Olustur</button>
+  </form>
+</body>
+</html>
