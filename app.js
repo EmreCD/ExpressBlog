@@ -3,6 +3,8 @@ const session = require('express-session');
 const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
+const postRoutes = require("./routes/postRoutes");
+
 
 const app = express();
 const PORT = 3000;
@@ -24,6 +26,8 @@ app.use(session({
 
 // Route dosyaları
 app.use('/', userRoutes);
+app.use('/posts', postRoutes);
+
 
 // Ana sayfa
 app.get('/', (req, res) => {
@@ -59,10 +63,6 @@ app.get('/', (req, res) => {
 
 app.get('/posts', (req, res) => {
   res.send('Posts page will be here.');
-});
-
-app.get('/posts/new', (req, res) => {
-  res.send('New post page will be here.');
 });
 
 app.get('/forgot-password', (req, res) => {
