@@ -18,11 +18,21 @@ function createPost(req, res) {
     author: req.session && req.session.user ? req.session.user : "Anonim"
   });
 
-  // Burası değişti: Kullanıcı mesaj görmek yerine ana sayfaya yönlendiriliyor
   res.redirect("/"); 
+}
+
+function getPostsPage(req, res) {
+  res.sendFile(path.join(__dirname, "../views/posts.html"));
+}
+
+function listPosts(req, res) {
+  const posts = postModel.getPosts(); // Modeldeki fonksiyonu çağırdık
+  res.json(posts);
 }
 
 module.exports = {
   showNewPostPage,
-  createPost
+  createPost,
+  getPostsPage,
+  listPosts
 };

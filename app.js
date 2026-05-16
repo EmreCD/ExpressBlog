@@ -5,7 +5,6 @@ const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require("./routes/postRoutes");
 
-
 const app = express();
 const PORT = 3000;
 
@@ -56,13 +55,6 @@ app.get('/', (req, res) => {
     </body>
     </html>
   `);
-});
-
-// Geçici test route'larından /login ve /logout silindi.
-// Bu işlemler artık MVC mimarisine uygun olarak userRoutes.js ve authController.js üzerinden yönetilecek.
-
-app.get('/posts', (req, res) => {
-  res.send('Posts page will be here.');
 });
 
 app.get('/forgot-password', (req, res) => {
