@@ -9,25 +9,29 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
-function getNav(user) {
+function appUrl(req, pathname) {
+  return `${req.app.locals.basePath}${pathname}` || pathname;
+}
+
+function getNav(req, user) {
   if (user) {
     return `
       <nav>
-        <a href="/">Home</a>
-        <a href="/posts">Posts</a>
-        <a href="/posts/new">New Post</a>
-        <a href="/logout">Logout</a>
+        <a href="${appUrl(req, '/')}">Home</a>
+        <a href="${appUrl(req, '/posts')}">Posts</a>
+        <a href="${appUrl(req, '/posts/new')}">New Post</a>
+        <a href="${appUrl(req, '/logout')}">Logout</a>
       </nav>
     `;
   }
 
   return `
     <nav>
-      <a href="/">Home</a>
-      <a href="/register">Register</a>
-      <a href="/login">Login</a>
-      <a href="/posts">Posts</a>
-      <a href="/forgot-password">Reset Password</a>
+      <a href="${appUrl(req, '/')}">Home</a>
+      <a href="${appUrl(req, '/register')}">Register</a>
+      <a href="${appUrl(req, '/login')}">Login</a>
+      <a href="${appUrl(req, '/posts')}">Posts</a>
+      <a href="${appUrl(req, '/forgot-password')}">Reset Password</a>
     </nav>
   `;
 }
@@ -41,16 +45,16 @@ function showNewPostPage(req, res) {
     <head>
       <meta charset="UTF-8">
       <title>Yeni Post - ExpressBlog</title>
-      <link rel="stylesheet" href="/style.css">
+      <link rel="stylesheet" href="${appUrl(req, '/style.css')}">
     </head>
     <body>
-      ${getNav(req.session.user)}
+      ${getNav(req, req.session.user)}
 
       <div class="container">
         <h1>Yeni Blog Yazisi</h1>
         <p>Yazar: ${username}</p>
 
-        <form action="/posts/new" method="POST">
+        <form action="${appUrl(req, '/posts/new')}" method="POST">
           <div>
             <label>Baslik</label>
             <input type="text" name="title" required>
@@ -83,7 +87,7 @@ function createPost(req, res) {
     author: username
   });
 
-  res.redirect("/posts"); 
+  res.redirect(appUrl(req, "/posts")); 
 }
 
 function getPostsPage(req, res) {
@@ -93,10 +97,10 @@ function getPostsPage(req, res) {
     <head>
       <meta charset="UTF-8">
       <title>ExpressBlog - Blog Yazıları</title>
-      <link rel="stylesheet" href="/style.css">
+      <link rel="stylesheet" href="${appUrl(req, '/style.css')}">
     </head>
     <body>
-      ${getNav(req.session.user)}
+      ${getNav(req, req.session.user)}
 
       <div class="container">
         <h1>Tüm Blog Yazıları</h1>
@@ -104,7 +108,7 @@ function getPostsPage(req, res) {
       </div>
 
       <script>
-        fetch('/posts/api/all')
+        fetch('${appUrl(req, '/posts/api/all')}')
           .then(res => res.json())
           .then(posts => {
             const container = document.getElementById('posts-container');

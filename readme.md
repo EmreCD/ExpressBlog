@@ -55,7 +55,21 @@ npm start
 
 Tarayıcıda aç:
 
-http://localhost:3000
+http://localhost:3000/sdlc_project
+
+## Yayınlama
+
+Uygulama varsayılan olarak `/sdlc_project` altında çalışır.
+
+```bash
+npm start
+```
+
+Farklı bir path kullanmak için:
+
+```bash
+BASE_PATH=/farkli-path npm start
+```
 
 ## Kullanım
 

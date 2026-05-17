@@ -4,7 +4,7 @@ const postController = require("../controllers/postController");
 
 function requireLogin(req, res, next) {
   if (!req.session || !req.session.user) {
-    return res.redirect("/login");
+    return res.redirect(`${req.app.locals.basePath}/login`);
   }
 
   next();
