@@ -26,6 +26,12 @@
       <div class="form-group">
         <label for="password">Şifre:</label>
         <input type="password" id="password" name="password" placeholder="Password" required>
+        <div id="password-strength-wrapper" style="margin-top: 8px; margin-bottom: 5px;">
+    <div style="background-color: #e9ecef; border-radius: 4px; height: 6px; width: 100%; overflow: hidden;">
+        <div id="strength-bar" style="height: 100%; width: 0%; background-color: #dc3545; transition: all 0.4s ease;"></div>
+    </div>
+    <small id="strength-text" style="font-weight: bold; color: #6c757d; display: block; margin-top: 5px;">Şifrenizi yazmaya başlayın...</small>
+</div>
       </div>
 
       <button type="submit" class="btn-primary">Kayıt Ol</button>
@@ -35,6 +41,46 @@
         <a href="/login">Zaten bir hesabınız var mı? Giriş yapın.</a>
     </div>
   </div>
+<script>
+    const registerPasswordInput = document.getElementById('password');
+    const registerStrengthBar = document.getElementById('strength-bar');
+    const registerStrengthText = document.getElementById('strength-text');
 
+    if (registerPasswordInput) {
+        registerPasswordInput.addEventListener('input', function () {
+            const val = registerPasswordInput.value;
+            let puan = 0;
+
+            if (val.length === 0) {
+                registerStrengthBar.style.width = '0%';
+                registerStrengthText.textContent = 'Şifrenizi yazmaya başlayın...';
+                registerStrengthText.style.color = '#6c757d';
+                return;
+            }
+
+            if (val.length >= 6) puan++;          
+            if (/[A-Z]/.test(val)) puan++;        
+            if (/[0-9]/.test(val)) puan++;        
+            if (/[^A-Za-z0-9]/.test(val)) puan++; 
+
+            if (puan <= 1) {
+                registerStrengthBar.style.width = '30%';
+                registerStrengthBar.style.backgroundColor = '#dc3545'; 
+                registerStrengthText.textContent = 'Zayıf Şifre ❌ (Büyük harf, rakam veya özel karakter ekleyin)';
+                registerStrengthText.style.color = '#dc3545';
+            } else if (puan === 2 || puan === 3) {
+                registerStrengthBar.style.width = '65%';
+                registerStrengthBar.style.backgroundColor = '#ffc107'; 
+                registerStrengthText.textContent = 'Orta Derece Şifre ⚠️ (Daha güçlü yapmak için özel karakter ekleyin)';
+                registerStrengthText.style.color = '#ffc107';
+            } else if (puan === 4) {
+                registerStrengthBar.style.width = '100%';
+                registerStrengthBar.style.backgroundColor = '#28a745'; 
+                registerStrengthText.textContent = 'Kusursuz Şifre! 💪';
+                registerStrengthText.style.color = '#28a745';
+            }
+        });
+    }
+</script>
 </body>
 </html>
