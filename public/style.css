@@ -26,13 +26,40 @@ nav a:hover {
   padding: 25px;
   border-radius: 8px;
 }
+
+.post-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.post-title {
+    color: #333;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.post-content {
+    color: #555;
+    line-height: 1.6;
+}
+
+.post-meta {
+    color: #888;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
 .login-container { 
     background: #ffffff; 
     padding: 30px; 
     border-radius: 8px; 
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
     width: 300px; 
-    margin: 50px auto; /* Sayfada ortalamak için */
+    margin: 50px auto;
 }
 
 .form-group { 

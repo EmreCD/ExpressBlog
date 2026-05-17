@@ -1,13 +1,19 @@
 const path = require('path');
 const User = require('../models/userModel');
 
-// ---  KAYIT (REGISTER) İŞLEMLERİ ---
-
 exports.getRegisterPage = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   res.sendFile(path.join(__dirname, '../views/register.html'));
 };
 
 exports.registerUser = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -28,16 +34,19 @@ exports.registerUser = (req, res) => {
   res.send(`User ${username} registered successfully!`);
 };
 
-
-// ---  GÖREV 3: GİRİŞ (LOGIN) VE ÇIKIŞ (LOGOUT) İŞLEMLERİ ---
-
-// Login sayfasını getirir
 exports.getLoginPage = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   res.sendFile(path.join(__dirname, '../views/login.html'));
 };
 
-// Formdan gelen verilerle login işlemini yapar
 exports.loginUser = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -55,12 +64,12 @@ exports.loginUser = (req, res) => {
       <html lang="tr">
       <head>
         <meta charset="UTF-8">
-        <title>Hata - NodeBlogify</title>
+        <title>Hata - ExpressBlog</title>
         <link rel="stylesheet" href="/style.css">
       </head>
       <body>
         <div class="login-container" style="text-align: center; margin-top: 50px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 300px; margin-left: auto; margin-right: auto;">
-          <h2 style="color: #dc3545; margin-bottom: 10px;">❌ Hata</h2>
+          <h2 style="color: #dc3545; margin-bottom: 10px;">Hata</h2>
           <p style="margin-bottom: 25px; font-size: 16px;">Kullanıcı adı veya şifre yanlış!</p>
           <a href="/login" style="background-color: #007BFF; color: white; display: inline-block; width: auto; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Giriş Sayfasına Dön</a>
         </div>
@@ -70,7 +79,6 @@ exports.loginUser = (req, res) => {
   }
 };
 
-// Çıkış işlemi
 exports.logoutUser = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -80,14 +88,19 @@ exports.logoutUser = (req, res) => {
   });
 };
 
-
-// ---  GÖREV 4: ŞİFRE SIFIRLAMA (FORGOT PASSWORD) İŞLEMLERİ ---
-
 exports.getForgotPasswordPage = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   res.sendFile(path.join(__dirname, '../views/forgot-password.html'));
 };
 
 exports.resetPassword = (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/posts');
+  }
+
   const { username, newPassword } = req.body;
 
   if (!username || !newPassword) {
@@ -96,19 +109,18 @@ exports.resetPassword = (req, res) => {
 
   const userExists = User.findByUsername(username);
 
-  // BAŞARISIZ EKRANI
   if (!userExists) {
     return res.send(`
       <!DOCTYPE html>
       <html lang="tr">
       <head>
         <meta charset="UTF-8">
-        <title>Hata - NodeBlogify</title>
+        <title>Hata - ExpressBlog</title>
         <link rel="stylesheet" href="/style.css">
       </head>
       <body>
         <div class="login-container" style="text-align: center; margin-top: 50px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 300px; margin-left: auto; margin-right: auto;">
-          <h2 style="color: #dc3545; margin-bottom: 10px;">❌ Hata</h2>
+          <h2 style="color: #dc3545; margin-bottom: 10px;">Hata</h2>
           <p style="margin-bottom: 25px; font-size: 16px;">Böyle bir kullanıcı bulunamadı.</p>
           <a href="/forgot-password" style="background-color: #6c757d; color: white; display: inline-block; width: auto; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Geri Dön</a>
         </div>
@@ -119,18 +131,17 @@ exports.resetPassword = (req, res) => {
 
   User.updatePassword(username, newPassword);
 
-  //  BAŞARILI EKRANI
   res.send(`
     <!DOCTYPE html>
     <html lang="tr">
     <head>
       <meta charset="UTF-8">
-      <title>Başarılı - NodeBlogify</title>
+      <title>Başarılı - ExpressBlog</title>
       <link rel="stylesheet" href="/style.css">
     </head>
     <body>
       <div class="login-container" style="text-align: center; margin-top: 50px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 300px; margin-left: auto; margin-right: auto;">
-        <h2 style="color: #28a745; margin-bottom: 10px;">✅ Başarılı</h2>
+        <h2 style="color: #28a745; margin-bottom: 10px;">Başarılı</h2>
         <p style="font-size: 16px; margin-bottom: 5px;">Şifreniz başarıyla güncellendi!</p>
         <p style="font-size: 14px; color: #666; margin-bottom: 25px;">Eski şifreniz artık geçersizdir.</p>
         <a href="/login" style="background-color: #007BFF; color: white; display: inline-block; width: auto; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Yeni Şifrenizle Giriş Yapın</a>

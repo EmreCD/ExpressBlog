@@ -8,59 +8,58 @@ const postRoutes = require("./routes/postRoutes");
 const app = express();
 const PORT = 3000;
 
-// Form verilerini okumak için
 app.use(express.urlencoded({ extended: true }));
-// JSON formatındaki verileri okumak için (eklendi)
 app.use(express.json());
 
-// CSS gibi static dosyalar için
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session ayarı (Görev 3)
 app.use(session({
-  secret: 'nodeblogify-secret-key',
+  secret: 'expressblog-secret-key',
   resave: false,
-  saveUninitialized: false // Güvenlik ve gereksiz session oluşumunu engellemek için false yapıldı
+  saveUninitialized: false
 }));
 
-// Route dosyaları
 app.use('/', userRoutes);
 app.use('/posts', postRoutes);
 
-
-// Ana sayfa
 app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>NodeBlogify</title>
-      <link rel="stylesheet" href="/style.css">
-    </head>
-    <body>
-      <nav>
+  const isLoggedIn = Boolean(req.session.user);
+  const navLinks = isLoggedIn
+    ? `
+        <a href="/">Home</a>
+        <a href="/posts">Posts</a>
+        <a href="/posts/new">New Post</a>
+        <a href="/logout">Logout</a>
+      `
+    : `
         <a href="/">Home</a>
         <a href="/register">Register</a>
         <a href="/login">Login</a>
         <a href="/posts">Posts</a>
-        <a href="/posts/new">New Post</a>
         <a href="/forgot-password">Reset Password</a>
-        <a href="/logout">Logout</a>
+      `;
+
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>ExpressBlog</title>
+      <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+      <nav>
+        ${navLinks}
       </nav>
 
       <div class="container">
-        <h1>NodeBlogify</h1>
-        <p>Node.js ve Express ile geliştirilmiş basit blog sitesi.</p>
+        <h1>ExpressBlog</h1>
+        <p>Yazılım Mühendisliği dersi kapsamında Node.js ve Express ile geliştirilmiş basit blog sitesi.</p>
       </div>
     </body>
     </html>
   `);
 });
 
-app.get('/forgot-password', (req, res) => {
-  res.send('Reset password page will be here.');
-});
-
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT} 🚀`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });

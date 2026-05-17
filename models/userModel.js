@@ -5,7 +5,6 @@ const dataPath = path.join(__dirname, '../data/users.json');
 
 const User = {
   getAll: () => {
-    // Güvenlik kontrolü
     if (!fs.existsSync(dataPath)) {
       return [];
     }
@@ -24,7 +23,6 @@ const User = {
     return users.find(user => user.username === username);
   },
 
-  //  GÖREV 4: Şifre Güncelleme Fonksiyonu
   updatePassword: (username, newPassword) => {
     const users = User.getAll();
     const userIndex = users.findIndex(user => user.username === username);

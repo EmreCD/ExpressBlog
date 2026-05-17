@@ -1,21 +1,21 @@
-# 🚀 NodeBlogify
+# ExpressBlog
 
-NodeBlogify, Node.js ve Express kullanılarak geliştirilmiş basit bir blog uygulamasıdır.  
+ExpressBlog, Node.js ve Express kullanılarak geliştirilmiş basit bir blog uygulamasıdır.  
 Proje MVC mimarisi ile oluşturulmuş olup veriler JSON dosyalarında saklanmaktadır.
 
 ---
 
-## 📌 Özellikler
+## Özellikler
 
-- 👤 Kullanıcı kayıt (Register)
-- 🔐 Kullanıcı giriş (Login)
-- 🔄 Şifre sıfırlama (Password Reset)
-- ✍️ Blog yazısı oluşturma
-- 📄 Blog yazılarını listeleme
+- Kullanıcı kayıt
+- Kullanıcı giriş
+- Şifre sıfırlama
+- Blog yazısı oluşturma
+- Blog yazılarını listeleme
 
 ---
 
-## 🏗️ Teknolojiler
+## Teknolojiler
 
 - Node.js
 - Express.js
@@ -25,10 +25,10 @@ Proje MVC mimarisi ile oluşturulmuş olup veriler JSON dosyalarında saklanmakt
 
 ---
 
-## 📁 Proje Yapısı
+## Proje Yapısı
 
 
-NodeBlogify/
+ExpressBlog/
 │
 ├── controllers/
 ├── models/
@@ -44,30 +44,29 @@ NodeBlogify/
 
 ---
 
-## ⚙️ Kurulum
+## Kurulum
 
 ```bash
-git clone https://github.com/KULLANICI_ADIN/NodeBlogify.git
-cd NodeBlogify
+git clone https://github.com/KULLANICI_ADIN/ExpressBlog.git
+cd ExpressBlog
 npm install
 npm start
+```
 
 Tarayıcıda aç:
 
 http://localhost:3000
-👥 Görev Dağılımı
-Project Setup → temel yapı
-Register → kullanıcı kayıt
-Login → giriş sistemi
-Password Reset → şifre değiştirme
-Blog System → yazı ekleme ve listeleme
-📌 Kullanım
-Register sayfasından kullanıcı oluştur
-Login ile giriş yap
-Yeni post oluştur
-Postları görüntüle
-Şifreni sıfırla
-⚠️ Not
+
+## Kullanım
+
+- Register sayfasından kullanıcı oluştur
+- Login ile giriş yap
+- Yeni post oluştur
+- Postları görüntüle
+- Şifreni sıfırla
+
+## Not
+
 Bu proje eğitim amaçlıdır
 Veritabanı yerine JSON kullanılmıştır
 Şifreler düz metin olarak saklanır (güvenli değildir)
