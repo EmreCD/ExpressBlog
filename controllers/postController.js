@@ -1,5 +1,7 @@
 const postModel = require("../models/postModel");
 
+// Kullanıcı adını HTML içine basmadan önce özel karakterleri dönüştürür.
+// Bu sayede kullanıcı adı içinde < veya & gibi karakterler varsa sayfa yapısı bozulmaz.
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -9,6 +11,9 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+// Menü HTML'ini kullanıcının giriş durumuna göre üretir.
+// Giriş yapan kullanıcı yazı ekleyebilir ve çıkış yapabilir.
+// Giriş yapmayan kullanıcı kayıt/giriş/şifre sıfırlama bağlantılarını görür.
 function getNav(user) {
   if (user) {
     return `
@@ -32,6 +37,8 @@ function getNav(user) {
   `;
 }
 
+// Yeni post formunu gösterir.
+// Bu fonksiyon requireLogin middleware'inden sonra çalıştığı için session'da kullanıcı beklenir.
 function showNewPostPage(req, res) {
   const username = escapeHtml(req.session.user.username);
 
@@ -69,6 +76,8 @@ function showNewPostPage(req, res) {
   `);
 }
 
+// Yeni blog yazısını kaydeder.
+// Başlık ve içerik formdan gelir, yazar adı ise login olmuş kullanıcının session bilgisinden alınır.
 function createPost(req, res) {
   const { title, content } = req.body;
   const username = req.session.user.username;
@@ -86,6 +95,8 @@ function createPost(req, res) {
   res.redirect("/posts"); 
 }
 
+// Blog yazılarının listelendiği sayfayı HTML olarak üretir.
+// Sayfa açıldıktan sonra tarayıcı /posts/api/all adresinden yazıları JSON olarak çeker.
 function getPostsPage(req, res) {
   res.send(`
     <!DOCTYPE html>
@@ -134,6 +145,8 @@ function getPostsPage(req, res) {
   `);
 }
 
+// posts.json içindeki yazıları JSON olarak döner.
+// Frontend tarafındaki fetch isteği bu endpoint'i kullanır.
 function listPosts(req, res) {
   const posts = postModel.getPosts();
   res.json(posts);

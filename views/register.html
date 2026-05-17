@@ -2,10 +2,12 @@
 <html>
 <head>
   <title>Register - ExpressBlog</title>
+  <!-- Ortak sayfa, form ve buton stilleri public/style.css dosyasından gelir. -->
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
+  <!-- Üst menü kullanıcının temel sayfalar arasında geçmesini sağlar. -->
   <nav>
     <a href="/">Home</a>
     <a href="/register">Register</a>
@@ -16,6 +18,7 @@
   <div class="login-container">
     <h2 class="text-center">Kayıt Ol</h2>
 
+    <!-- Form POST isteği ile /register endpoint'ine gider ve userController.registerUser çalışır. -->
     <form action="/register" method="POST">
       
       <div class="form-group">
@@ -46,11 +49,14 @@
     const registerStrengthBar = document.getElementById('strength-bar');
     const registerStrengthText = document.getElementById('strength-text');
 
+    // Şifre alanına yazıldıkça basit bir güç puanı hesaplanır.
+    // Bu kontrol sadece kullanıcıya görsel geri bildirim vermek içindir.
     if (registerPasswordInput) {
         registerPasswordInput.addEventListener('input', function () {
             const val = registerPasswordInput.value;
             let puan = 0;
 
+            // Alan boşken bar sıfırlanır.
             if (val.length === 0) {
                 registerStrengthBar.style.width = '0%';
                 registerStrengthText.textContent = 'Şifrenizi yazmaya başlayın...';
@@ -63,6 +69,7 @@
             if (/[0-9]/.test(val)) puan++;        
             if (/[^A-Za-z0-9]/.test(val)) puan++; 
 
+            // Puan değerine göre bar genişliği, rengi ve açıklama metni güncellenir.
             if (puan <= 1) {
                 registerStrengthBar.style.width = '30%';
                 registerStrengthBar.style.backgroundColor = '#dc3545'; 

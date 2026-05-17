@@ -1,10 +1,12 @@
 body {
+  /* Bütün sayfalarda aynı font ve arka plan kullanılır. */
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: #f4f4f4;
 }
 
 nav {
+  /* Üst navigasyon çubuğu için koyu mavi arka plan. */
   background-color: #103c9a;
   padding: 15px;
 }
@@ -20,6 +22,7 @@ nav a:hover {
 }
 
 .container {
+  /* Ana içerik kutusu sayfanın ortasında beyaz bir alan olarak görünür. */
   width: 80%;
   margin: 40px auto;
   background-color: white;
@@ -28,6 +31,7 @@ nav a:hover {
 }
 
 .post-card {
+    /* Her blog yazısı ayrı bir kart olarak gösterilir. */
     background: #fff;
     border: 1px solid #ddd;
     padding: 20px;
@@ -54,6 +58,7 @@ nav a:hover {
 }
 
 .login-container { 
+    /* Login, register ve şifre sıfırlama formları için ortak kutu stili. */
     background: #ffffff; 
     padding: 30px; 
     border-radius: 8px; 
@@ -63,6 +68,7 @@ nav a:hover {
 }
 
 .form-group { 
+    /* Formdaki label ve input çiftleri arasında boşluk bırakır. */
     margin-bottom: 15px; 
 }
 
@@ -81,6 +87,7 @@ nav a:hover {
 }
 
 .btn-primary { 
+    /* Formlardaki ana işlem butonunun ortak görünümü. */
     width: 100%; 
     padding: 10px; 
     background-color: #007BFF; 

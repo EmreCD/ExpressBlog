@@ -1,6 +1,8 @@
 const path = require('path');
 const User = require('../models/userModel');
 
+// Register sayfasını gösterir.
+// Kullanıcı zaten giriş yaptıysa tekrar kayıt sayfasına gitmesine gerek yoktur.
 exports.getRegisterPage = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');
@@ -9,6 +11,8 @@ exports.getRegisterPage = (req, res) => {
   res.sendFile(path.join(__dirname, '../views/register.html'));
 };
 
+// Register formundan gelen kullanıcı adı ve şifreyi kontrol eder.
+// Aynı kullanıcı adı yoksa users.json dosyasına yeni kullanıcı eklenir.
 exports.registerUser = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');
@@ -34,6 +38,8 @@ exports.registerUser = (req, res) => {
   res.send(`User ${username} registered successfully!`);
 };
 
+// Login sayfasını gösterir.
+// Giriş yapmış kullanıcıyı tekrar login formuna göndermek yerine yazılar sayfasına taşır.
 exports.getLoginPage = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');
@@ -42,6 +48,8 @@ exports.getLoginPage = (req, res) => {
   res.sendFile(path.join(__dirname, '../views/login.html'));
 };
 
+// Login formundan gelen bilgileri users.json içindeki kayıtlarla karşılaştırır.
+// Bilgiler doğruysa session'a kullanıcının adını kaydeder.
 exports.loginUser = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');
@@ -79,6 +87,7 @@ exports.loginUser = (req, res) => {
   }
 };
 
+// Aktif session'ı silerek kullanıcıyı sistemden çıkarır.
 exports.logoutUser = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -88,6 +97,8 @@ exports.logoutUser = (req, res) => {
   });
 };
 
+// Şifre sıfırlama formunu gösterir.
+// Bu işlem login olmayan kullanıcılar için tasarlanmıştır.
 exports.getForgotPasswordPage = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');
@@ -96,6 +107,8 @@ exports.getForgotPasswordPage = (req, res) => {
   res.sendFile(path.join(__dirname, '../views/forgot-password.html'));
 };
 
+// Şifre sıfırlama formundan gelen kullanıcı adı ile kullanıcı bulunur.
+// Kullanıcı varsa yeni şifre users.json dosyasına yazılır.
 exports.resetPassword = (req, res) => {
   if (req.session.user) {
     return res.redirect('/posts');

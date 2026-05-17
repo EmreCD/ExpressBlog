@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giriş Yap - ExpressBlog</title>
+    <!-- Login formunun ortak stilleri public/style.css dosyasından yüklenir. -->
     <link rel="stylesheet" href="/style.css"> 
 </head>
 <body>
 
     <div class="login-container">
         <h2 class="text-center"> Giriş Yap</h2>
+        <!-- Form POST isteği ile /login endpoint'ine gider ve session oluşturulmaya çalışılır. -->
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="username">Kullanıcı Adı:</label>
